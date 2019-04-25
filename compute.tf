@@ -29,7 +29,12 @@ resource "aws_instance" "terraform_instance" {
     provisioner "remote-exec" {
       inline = ["sudo yum update -y",
       "curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash - ",
-      "sudo yum install nodejs -y"
+      "sudo yum install nodejs git -y",
+      "git clone https://github.com/kentrn/vue-express-template.git",
+      "cd vue-express-template/",
+      "npm install && sudo npm install forever -g",
+      "touch .env && echo \"PORT=80\" >> .env",
+      "sudo forever start server/app.js"
       ]
 
       connection {
