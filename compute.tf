@@ -89,7 +89,7 @@ resource "aws_instance" "terraform_instance" {
       "cd vue-express-template/",
       "npm install && sudo npm install forever -g",
       "touch .env && echo \"PORT=80\" >> .env",
-      "sudo forever start server/app.js"
+      "sudo forever start app.js"
       ]
 
       connection {
