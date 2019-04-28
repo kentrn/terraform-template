@@ -29,6 +29,30 @@ resource "aws_security_group" "terraform_sg_webserver" {
     }
 }
 
+resource "aws_security_group" "terraform_sg_elb" {
+    name = "terraform_sg_elb"
+    vpc_id = "${aws_vpc.terraform_vpc.id}"
+
+    ingress = {
+        protocol = "tcp"
+        from_port = 80
+        to_port = 80
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    ingress = {
+        protocol = "tcp"
+        from_port = 443
+        to_port = 443
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    egress = {
+        protocol = "-1"
+        from_port = 0
+        to_port = 0
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
+
 resource "aws_default_network_acl" "terraform_default_nacl" {
     default_network_acl_id = "${aws_vpc.terraform_vpc.default_network_acl_id}"
     tags{
