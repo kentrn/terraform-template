@@ -123,7 +123,7 @@ resource "aws_network_acl" "terraform_nacl_private" {
       protocol = "tcp"
       rule_no = 100
       action = "allow"
-      cidr_block = "172.16.0.0/16"
+      cidr_block = "${var.aws["vpc_cidr"]}${var.aws["vpc_cidr_mask"]}"
       from_port = 22
       to_port = 22
   }
@@ -131,7 +131,7 @@ resource "aws_network_acl" "terraform_nacl_private" {
       protocol = "tcp"
       rule_no = 110
       action = "allow"
-      cidr_block = "172.16.0.0/16"
+      cidr_block = "${var.aws["vpc_cidr"]}${var.aws["vpc_cidr_mask"]}"
       from_port = 443
       to_port = 443
   }
@@ -139,7 +139,7 @@ resource "aws_network_acl" "terraform_nacl_private" {
       protocol = "tcp"
       rule_no = 120
       action = "allow"
-      cidr_block = "172.16.0.0/16"
+      cidr_block = "${var.aws["vpc_cidr"]}${var.aws["vpc_cidr_mask"]}"
       from_port = 80
       to_port = 80
   }

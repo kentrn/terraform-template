@@ -16,11 +16,11 @@ resource "aws_launch_configuration" "terraform_launch_config" {
 
 resource "aws_autoscaling_group" "terraform_autoscale_group" {
     name = "terraform_autoscale_group"
-    max_size = 2
-    min_size = 1
+    max_size = "${var.aws["asg_max"]}"
+    min_size = "${var.aws["asg_min"]}"
     health_check_grace_period = 300
     health_check_type = "EC2"
-    desired_capacity = 1
+    desired_capacity = "${var.aws["asg_desired"]}"
     vpc_zone_identifier = ["${aws_subnet.terraform_subnet_public_1.id}", "${aws_subnet.terraform_subnet_public_2.id}"]
     launch_configuration = "${aws_launch_configuration.terraform_launch_config.name}"
     termination_policies = ["NewestInstance"]

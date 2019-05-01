@@ -5,7 +5,7 @@ provider "aws" {
 }
 
 resource "aws_vpc" "terraform_vpc" {
-    cidr_block = "${var.aws["vpc_cidr"]}"
+    cidr_block = "${var.aws["vpc_cidr"]}${var.aws["vpc_cidr_mask"]}"
     tags {
         Name = "terraform_vpc"
     }
@@ -13,7 +13,7 @@ resource "aws_vpc" "terraform_vpc" {
 
 resource "aws_subnet" "terraform_subnet_public_1" {
   vpc_id = "${aws_vpc.terraform_vpc.id}"
-  cidr_block = "172.16.0.0/24"
+  cidr_block = "172.16.0.0${var.aws["subnet_cidr_mask"]}"
   availability_zone = "${var.aws["region"]}a"
   tags{
       Name = "terraform_subnet_public_2"
@@ -22,7 +22,7 @@ resource "aws_subnet" "terraform_subnet_public_1" {
 
 resource "aws_subnet" "terraform_subnet_public_2" {
   vpc_id = "${aws_vpc.terraform_vpc.id}"
-  cidr_block = "172.16.2.0/24"
+  cidr_block = "172.16.2.0${var.aws["subnet_cidr_mask"]}"
   availability_zone = "${var.aws["region"]}b"
   tags{
       Name = "terraform_subnet_public_2"
@@ -31,7 +31,7 @@ resource "aws_subnet" "terraform_subnet_public_2" {
 
 resource "aws_subnet" "terraform_subnet_private_1" {
     vpc_id = "${aws_vpc.terraform_vpc.id}"
-    cidr_block = "172.16.1.0/24"
+    cidr_block = "172.16.1.0${var.aws["subnet_cidr_mask"]}"
   availability_zone = "${var.aws["region"]}a"
     tags {
         Name = "terraform_subnet_private_1"
@@ -40,7 +40,7 @@ resource "aws_subnet" "terraform_subnet_private_1" {
 
 resource "aws_subnet" "terraform_subnet_private_2" {
     vpc_id = "${aws_vpc.terraform_vpc.id}"
-    cidr_block = "172.16.3.0/24"
+    cidr_block = "172.16.3.0${var.aws["subnet_cidr_mask"]}"
   availability_zone = "${var.aws["region"]}b"
     tags {
         Name = "terraform_subnet_private_2"
