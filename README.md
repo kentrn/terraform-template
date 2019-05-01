@@ -28,8 +28,8 @@ Security Layer:
 2. Security Groups for webserver and Elastic Load Balancer
 
 Compute Layer:
-1. A webserver serving VueJS via NodeJS + Express
-2. A local private key for webserver SSH
+1. A webserver serving a VueJS static page via NodeJS + Express
+2. A local private key for webserver SSH (stored on your local machine)
 2. An AMI using the webserver as the base image
 3. Launch Config + ASG + ELB (Classic) serving the AMI
 
