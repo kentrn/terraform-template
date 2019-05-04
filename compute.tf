@@ -79,25 +79,25 @@ resource "aws_instance" "terraform_instance" {
     vpc_security_group_ids = ["${aws_security_group.terraform_sg_webserver.id}"]
     tags {
         Name = "terraform_instance"
-    }
+        env = "${var.aws["env"]}"
+    } 
     key_name = "${aws_key_pair.terraform_generated_key.key_name}"
     provisioner "remote-exec" {
-      inline = ["sudo yum update -y",
-      "curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash - ",
-      "sudo yum install nodejs git -y",
-      "git clone https://github.com/kentrn/vue-express-template.git",
-      "cd vue-express-template/",
-      "npm install && sudo npm install forever -g",
-      "touch .env && echo \"PORT=80\" >> .env",
-      "sudo forever start app.js"
-      ]
+        inline = ["sudo yum update -y",
+        "curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash - ",
+        "sudo yum install nodejs git -y",
+        "git clone https://github.com/kentrn/vue-express-template.git",
+        "cd vue-express-template/",
+        "npm install && sudo npm install forever -g",
+        "touch .env && echo \"PORT=80\" >> .env",
+        "sudo forever start app.js"]
 
-      connection {
-          type = "ssh"
-          user = "ec2-user"
-          private_key = "${tls_private_key.instance_key.private_key_pem}"
-          agent = false
+        connection {
+            type = "ssh"
+            user = "ec2-user"
+            private_key = "${tls_private_key.instance_key.private_key_pem}"
+            agent = false
 
-      }
+        }
     }
 }

@@ -147,3 +147,8 @@ resource "aws_network_acl" "terraform_nacl_private" {
     Name = "terraform_nacl_private"      
   }
 }
+
+resource "aws_iam_instance_profile" "terraform_webserver_svc_profile" {
+    name = "terraform_webserver_service_profile"
+    role = "${var.aws["ws_service_role"]}"
+}
